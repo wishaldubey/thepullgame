@@ -1,125 +1,162 @@
 /* Base Styles */
-body {
+html {
+    box-sizing: border-box;
+    touch-action: manipulation;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body {
     background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
     color: white;
     font-family: 'Rubik', sans-serif;
     margin: 0;
     padding: 20px;
     min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .container {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 15px;
   }
   
   /* Lobby Styles */
   .lobby-section {
     text-align: center;
     background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 1rem;
-    margin: 2rem auto;
+    margin: 1rem auto;
     backdrop-filter: blur(10px);
+    width: calc(100% - 30px);
   }
   
-  .create-btn, .join-btn {
+  button, input, .tug-btn {
+    touch-action: manipulation;
+  }
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .create-btn, .join-btn, .team-btn, .start-btn, .tug-btn {
     padding: 15px 30px;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 10px;
+    margin: 5px;
+    min-width: 220px;
+    width: 100%;
   }
   
   .create-btn {
     background: linear-gradient(45deg, #4CAF50, #45a049);
-    color: white;
   }
   
   .join-btn {
     background: linear-gradient(45deg, #2196F3, #1976D2);
-    color: white;
   }
   
   .room-input {
     padding: 12px 20px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border-radius: 8px;
     border: 2px solid #4CAF50;
     background: rgba(0,0,0,0.3);
     color: white;
     text-align: center;
     text-transform: uppercase;
-    margin: 10px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px;
   }
   
   /* Room Interface */
   #roomInterface {
     display: none;
     background: rgba(255,255,255,0.1);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 1rem;
-    margin: 2rem auto;
-    text-align: center;
+    margin: 1.5rem auto;
+    width: calc(100% - 30px);
   }
   
   .team-btn {
-    padding: 15px 30px;
-    margin: 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
     opacity: 0.6;
-  }
-  
-  .red-btn {
-    background: linear-gradient(45deg, #ff4444, #cc0000);
-    color: white;
-  }
-  
-  .blue-btn {
-    background: linear-gradient(45deg, #4444ff, #0000cc);
-    color: white;
+    min-width: 160px;
   }
   
   .team-btn.selected {
     opacity: 1;
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    transform: scale(1.02);
+  }
+  
+  .red-btn {
+    background: linear-gradient(45deg, #ff4444, #cc0000);
+  }
+  
+  .blue-btn {
+    background: linear-gradient(45deg, #4444ff, #0000cc);
   }
   
   .start-btn {
     background: linear-gradient(45deg, #ff6b6b, #ffd93d);
-    color: white;
-    padding: 15px 30px;
-    margin-top: 20px;
     display: none;
+  }
+  
+  #gameContainer, #ropeContainer, .tug-btn {
+    user-select: none;
+    -webkit-user-select: none;
   }
   
   /* Game Interface */
   #gameContainer {
     display: none;
     text-align: center;
+    width: 100%;
   }
   
   #ropeContainer {
-    width: 80%;
-    height: 20px;
-    background: #654321;
-    margin: 40px auto;
-    border-radius: 10px;
+    width: 90%;
+    height: 16px;
+    background: #7a5c3c;
+    margin: 30px auto;
+    border-radius: 8px;
     position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+  
+  #ropeContainer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+      transparent 25%, 
+      rgba(255,255,255,0.1) 25%, 
+      rgba(255,255,255,0.1) 50%, 
+      transparent 50%, 
+      transparent 75%, 
+      rgba(0,0,0,0.1) 75%);
+    background-size: 40px 100%;
   }
   
   #marker {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: #ffd700;
-    border: 4px solid #c4a300;
+    border: 3px solid #c4a300;
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -127,22 +164,79 @@ body {
     transform: translate(-50%, -50%);
     transition: left 0.3s ease;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    z-index: 1;
   }
   
   .tug-btn {
     background: linear-gradient(45deg, #FF416C, #FF4B2B);
     color: white;
-    padding: 20px 40px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.1s;
+    font-size: 1.1rem;
+    padding: 18px 35px;
+    min-width: auto;
+    width: auto;
     display: none;
   }
   
   .tug-btn:active {
     transform: scale(0.95);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+  
+    .lobby-section, #roomInterface {
+      padding: 1rem;
+      margin: 1rem auto;
+    }
+  
+    .create-btn, .join-btn, .team-btn, .start-btn {
+      font-size: 1rem;
+      padding: 12px 25px;
+      min-width: auto;
+    }
+  
+    #ropeContainer {
+      height: 14px;
+      margin: 20px auto;
+    }
+  
+    #marker {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .tug-btn {
+      padding: 16px 30px;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .room-input {
+      font-size: 0.95rem;
+      padding: 10px 15px;
+    }
+  
+    .team-btn {
+      margin: 5px 0;
+    }
+  
+    #marker {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  
+  /* Prevent zoom on mobile input focus */
+  @media (max-width: 768px) {
+    input, button {
+      font-size: 16px !important;
+    }
   }
   
   /* Animations */
