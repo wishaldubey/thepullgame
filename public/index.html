@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tug of War</title>
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Lobby Section -->
+    <div class="lobby-section" id="lobby">
+      <h1>🎮 Tug of War</h1>
+      <button class="create-btn" onclick="createRoom()">Create Room</button>
+      <div class="join-section">
+        <input class="room-input" id="roomCode" placeholder="Enter Room Code" maxlength="6">
+        <button class="join-btn" onclick="joinRoom()">Join Room</button>
+      </div>
+    </div>
+
+    <!-- Room Interface -->
+    <div id="roomInterface">
+      <div class="room-header">
+        <div class="room-code">Room: <span id="roomId"></span></div>
+        <p class="host-status">👑 Host: <span id="hostStatus"></span></p>
+      </div>
+      <div class="team-select">
+        <button class="team-btn red-btn" id="redBtn" onclick="joinTeam('red')">🔴 Red Team</button>
+        <button class="team-btn blue-btn" id="blueBtn" onclick="joinTeam('blue')">🔵 Blue Team</button>
+      </div>
+      <div class="player-count">
+        <span id="redCount">0</span> Red vs <span id="blueCount">0</span> Blue
+      </div>
+      <button class="start-btn" id="startBtn" onclick="startGame()">🚀 Start Game</button>
+    </div>
+
+    <!-- Game Interface -->
+    <div id="gameContainer">
+      <div class="game-header">
+        <h2>Tug the Rope!</h2>
+        <div class="score-display">
+          <span class="red-score">Red: <span id="redScore">0</span></span>
+          <span class="blue-score">Blue: <span id="blueScore">0</span></span>
+        </div>
+      </div>
+      <div id="ropeContainer">
+        <div id="rope">
+          <div id="marker"></div>
+        </div>
+      </div>
+      <button class="tug-btn" id="tugButton" onclick="tug()">💥 TUG NOW!</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/script.js"></script>
+</body>
+</html>
