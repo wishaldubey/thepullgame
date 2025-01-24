@@ -5,7 +5,15 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins for Render deployment
+    methods: ["GET", "POST"]
+  }
+});
+
+// Use environment variable for port (Render requirement)
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
@@ -129,6 +137,6 @@ function resetGame(room) {
   setTimeout(() => io.to(room.id).emit('update', room.gameState), 3000);
 }
 
-server.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
